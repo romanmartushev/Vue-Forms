@@ -3,39 +3,36 @@
 <head>
     <meta charset="UTF-8">
     <title>Document</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.2.3/css/bulma.css">
-    <style>body { padding-top: 40px; }</style>
+    <link href="/css/app.css" rel="stylesheet">
 </head>
 
-<body>
-    <div id="app" class="container">
+<body class="bg-gray-300 pt-10">
+    <div id="app" class="container mx-auto">
         @include ('projects.list')      
 
         <form method="POST" action="/projects" @submit.prevent="onSubmit" @keydown="form.errors.clear($event.target.name)">
             <div class="control">
-                <label for="name" class="label">Project Name:</label>
+                <label for="name" class="block mb-2 text-2xl">Project Name:</label>
                 
-                <input type="text" id="name" name="name" class="input" v-model="form.name"> 
+                <input type="text" id="name" name="name" class="border border-gray-400 rounded w-full" v-model="form.name">
 
-                <span class="help is-danger" v-if="form.errors.has('name')" v-text="form.errors.get('name')"></span>
+                <span class="block text-red-600" v-if="form.errors.has('name')" v-text="form.errors.get('name')"></span>
             </div>
 
             <div class="control">
-                <label for="description" class="label">Project Description:</label>
+                <label for="description" class="block mb-2 text-2xl">Project Description:</label>
                 
-                <input type="text" id="description" name="description" class="input" v-model="form.description">
+                <input type="text" id="description" name="description" class="border border-gray-400 rounded w-full" v-model="form.description">
 
-                <span class="help is-danger" v-if="form.errors.has('description')" v-text="form.errors.get('description')"></span>
+                <span class="block text-red-600" v-if="form.errors.has('description')" v-text="form.errors.get('description')"></span>
             </div>
 
-            <div class="control">
-                <button class="button is-primary" :disabled="form.errors.any()">Create</button>
+            <div class="mt-3">
+                <button class="rounded px-3 py-1 text-white" :disabled="form.errors.any()" :class="[ form.errors.any() ? 'bg-gray-500' : 'bg-teal-400']">Create</button>
             </div>
         </form>
     </div>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.15.3/axios.js"></script>
-    <script src="https://unpkg.com/vue@2.1.6/dist/vue.js"></script>
     <script src="/js/app.js"></script>
 </body>
 </html>

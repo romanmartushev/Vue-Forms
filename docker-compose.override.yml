@@ -1,0 +1,31 @@
+version: '3.1'
+services:
+
+  code:
+    volumes:
+      - ${PWD}/php-override.ini:/usr/local/etc/php/conf.d/php-override.ini
+    image: jenkins.paulbunyan.net:5000/php:7.2pcov
+    ports:
+      - "3000:3000"
+      - "3001:3001"
+    links:
+      # https://docs.docker.com/compose/compose-file/#links
+      - "web:vueforms.localhost"
+
+  hub:
+    image: selenium/hub:3.141.59-dubnium
+    ports:
+    - "4444"
+
+  chrome:
+    image: selenium/node-chrome-debug:3.141.59-dubnium
+    shm_size: 4G
+    privileged: true
+
+  redis:
+    restart: always
+    image: redis:4.0
+    ports:
+      - "6379:6379"
+    networks:
+      - backend
